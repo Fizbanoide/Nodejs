@@ -61,6 +61,27 @@ app.get('/customers/delete/:id', customers.delete_customer);
 app.get('/customers/edit/:id', customers.edit);
 app.post('/customers/edit/:id',customers.save_edit);
 
+/*ROUTES API*/
+
+app.post('/address/add', address.add);
+app.post('/contact/add', contact.add);
+app.post('/company/add', company.add);
+app.post('/user/add', user.add);
+app.get('/profile', user.show);
+app.post('/truck/add', truck.add);
+app.post('/bonusmodel/add', bonusmodel.add);
+app.post('/bonusmodel/edit/:id', bonusmodel.edit);
+app.get('/bonuses/:id', bonuses.show);
+app.post('/bonus/edit', bonus.edit);
+app.post('/bonus/add', bonus.add);
+app.get('/drivers/show', drivers.show);
+app.post('/holidays/add', holidays.add);
+app.post('/holidays/accept/:id', holidays.accept);
+app.post('/holidays/reject/:id', holidays.reject);
+
+
+
+
 
 app.use(app.router);
 
