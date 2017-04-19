@@ -9,7 +9,11 @@ var http = require('http');
 var path = require('path');
 
 //load customers route
-var customers = require('./routes/customers'); 
+var customers = require('./routes/customers');
+var bonuses = require('./routes/bonus.js');
+var bonus = require('./routes/bonus.js');
+var drivers = require('./routes/user');
+var holidays = require('./routes/holidays');
 var app = express();
 
 var connection  = require('express-myconnection'); 
@@ -63,14 +67,14 @@ app.post('/customers/edit/:id',customers.save_edit);
 
 /*ROUTES API*/
 
-app.post('/address/add', address.add);
+/*app.post('/address/add', address.add);
 app.post('/contact/add', contact.add);
 app.post('/company/add', company.add);
 app.post('/user/add', user.add);
 app.get('/profile', user.show);
 app.post('/truck/add', truck.add);
 app.post('/bonusmodel/add', bonusmodel.add);
-app.post('/bonusmodel/edit/:id', bonusmodel.edit);
+app.post('/bonusmodel/edit/:id', bonusmodel.edit);*/
 app.get('/bonuses/:id', bonuses.show);
 app.post('/bonus/edit', bonus.edit);
 app.post('/bonus/add', bonus.add);
