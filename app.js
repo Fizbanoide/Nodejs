@@ -9,7 +9,18 @@ var http = require('http');
 var path = require('path');
 
 //load customers route
-var customers = require('./routes/customers'); 
+var customers = require('./routes/customers');
+var address = require('./routes/address.js');
+var contact = require('./routes/contact.js');
+var bonus = require('./routes/bonus.js');
+var bonusmodel = require('./routes/bonusmodel.js');
+var comment = require('./routes/comment.js');
+var company = require('./routes/company.js');
+var contact = require('./routes/contact.js');
+var holidays = require('./routes/holidays.js');
+var message = require('./routes/message.js');
+var truck = require('./routes/truck.js');
+var user = require('./routes/user.js');
 var app = express();
 
 var connection  = require('express-myconnection'); 
@@ -67,17 +78,17 @@ app.post('/address/add', address.add);
 app.post('/contact/add', contact.add);
 app.post('/company/add', company.add);
 app.post('/user/add', user.add);
-app.get('/profile', user.show);
+app.get('/profile/:id', user.show);
 app.post('/truck/add', truck.add);
 app.post('/bonusmodel/add', bonusmodel.add);
-app.post('/bonusmodel/edit/:id', bonusmodel.edit);
-app.get('/bonuses/:id', bonuses.show);
+app.post('/bonusmodel/edit', bonusmodel.edit);
+/*app.get('/bonuses/:id', bonuses.show);
 app.post('/bonus/edit', bonus.edit);
 app.post('/bonus/add', bonus.add);
 app.get('/drivers/show', drivers.show);
 app.post('/holidays/add', holidays.add);
 app.post('/holidays/accept/:id', holidays.accept);
-app.post('/holidays/reject/:id', holidays.reject);
+app.post('/holidays/reject/:id', holidays.reject);*/
 
 
 
