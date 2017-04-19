@@ -55,8 +55,8 @@ exports.show = function(req,res){
         
      });
 };
-=======
-exports.show = function(req, res)
+
+exports.showdrivers = function(req, res)
 {
   req.getConnection(function(err, connection)
   {
@@ -68,4 +68,4 @@ exports.show = function(req, res)
     });
   });
 }
->>>>>>> cb23bc21b187bc5d1c2c9677ca07f27a0acc3877
+

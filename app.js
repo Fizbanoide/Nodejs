@@ -23,7 +23,6 @@ var truck = require('./routes/truck.js');
 var user = require('./routes/user.js');
 var bonuses = require('./routes/bonus.js');
 var bonus = require('./routes/bonus.js');
-var drivers = require('./routes/user');
 var holidays = require('./routes/holidays');
 
 var app = express();
@@ -90,7 +89,7 @@ app.post('/bonusmodel/edit/:id', bonusmodel.edit);
 app.get('/bonuses/:id', bonuses.show);
 app.post('/bonus/edit', bonus.edit);
 app.post('/bonus/add', bonus.add);
-app.get('/drivers/show', drivers.show);
+app.get('/drivers/show', user.showdrivers);
 app.post('/holidays/add', holidays.add);
 app.post('/holidays/accept/:id', holidays.accept);
 app.post('/holidays/reject/:id', holidays.reject);
