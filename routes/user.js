@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 exports.add = function(req,res){
     
     var input = JSON.parse(JSON.stringify(req.body));
@@ -54,3 +55,17 @@ exports.show = function(req,res){
         
      });
 };
+=======
+exports.show = function(req, res)
+{
+  req.getConnection(function(err, connection)
+  {
+    connection.query("SELECT * FROM T_USER WHERE PROFILE_ID = (SELECT PROFILE_ID FROM T_PROFILE WHERE LOWER(PROFILE_LABEL) = 'driver')", function(err, rows)
+    {
+      if(err)
+        console.log("Error selecting : %s", err);
+      res.json(rows);
+    });
+  });
+}
+>>>>>>> cb23bc21b187bc5d1c2c9677ca07f27a0acc3877
