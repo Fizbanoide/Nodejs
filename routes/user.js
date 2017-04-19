@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 exports.add = function(req,res){
     
     var input = JSON.parse(JSON.stringify(req.body));
