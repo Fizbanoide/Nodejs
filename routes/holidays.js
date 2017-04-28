@@ -4,18 +4,18 @@ exports.add = function(req, res)
   req.getConnection(function(err, connection)
   {
     var data = {
-      h_days        : input.days,
-      h_start_date  : input.startDate,
-      h_end_date    : input.endDate,
-      h_user_id     : input.user,
-      h_unpaid_days : input.unpaidDays,
-      h_validated   : input.validated
+      HOLIDAYS_DAYS        : input.days,
+      HOLIDAYS_START_DATE  : input.startDate,
+      HOLIDAYS_END_DATE    : input.endDate,
+      USER_ID     : input.user,
+      HOLIDAYS_UNPAID_DAYS : input.unpaidDays,
+      HOLIDAYS_VALIDATED   : input.validated
     };
-    connection.query("INSERT INTO T_HOLIDAYS (HOLIDAYS_DAYS, HOLIDAYS_START_DATE, HOLIDAYS_END_DATE, USER_ID, HOLIDAYS_UNPAID_DAYS, HOLIDAYS_VALIDATED) VALUES ("+data.h_days+","+data.h_start_date+","+data.h_end_date+","+data.h_user_id+","+data.h_unpaid_days+","+data.h_validated+")",function(err)
+	console.log(data);
+    connection.query("INSERT INTO T_HOLIDAYS set ?", data, function(err)
     {
       if(err)
         console.log("Error inserting : %s", err);
-
     });
   });
 }

@@ -1,24 +1,22 @@
 exports.add = function(req,res){
     
     var input = JSON.parse(JSON.stringify(req.body));
-    console.log(input);
     req.getConnection(function (err, connection) {
-        
         var data = {
             
-            BONUS_MODEL_VALUE : input.bonusModelValue,
-            BONUS_MODEL_VALUE_MAX : input.bonusModelValueMax,
-            BONUS_MODEL_LABEL : input.bonusModelLabel,
-            BONUS_MODEL_PERIOD : input.bonusModelPeriod,
-            BONUS_MODEL_DATE_START : input.bonusModelDateStart,
-            BONUS_MODEL_DATE_MODIF : input.bonusModelDateModif,
-            BONUS_MODEL_ACTIVE : 1
+            BONUS_MODEL_VALUE : input.form.VALUE,
+            BONUS_MODEL_VALUE_MAX : input.form.VALUE_MAX,
+            BONUS_MODEL_LABEL : input.form.LABEL,
+            BONUS_MODEL_PERIOD : input.form.PERIOD_TYPE*input.form.PERIOD_NUMBER,
+            BONUS_MODEL_DATE_START : input.form.DATE_START,
+			BONUS_MODEL_DATE_MODIF : 0,
+			BONUS_MODEL_ACTIVE : 1
         
         };
-        
+		
         var query = connection.query("INSERT INTO T_BONUS_MODEL set ? ",data, function(err, rows)
         {
-  
+			console.log(data);
           if (err)
               console.log("Error inserting : %s ",err );
          

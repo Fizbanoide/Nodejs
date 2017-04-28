@@ -16,7 +16,7 @@ exports.show = function(req, res)
 
 exports.edit = function(req, res)
 {
-  var input = JSON.parse(JSON.stringify(req.body));
+  var value = parseInt(req.body);
   req.getConnection(function(err, connection)
   {
     var data = {
@@ -48,30 +48,26 @@ exports.add = function(req, res)
   var input = JSON.parse(JSON.stringify(req.body));
   req.getConnection(function(err, connection)
   {
-    var data = {
-      bonus_value         : input.value,
-      bonus_date_start    : input.dateStart,
-      bonus_date_creation : input.dateCreation,
-      bonus_user_id       : input.user,
-      bonus_model_id      : input.bonusModel,
-      bonus_percentage    : input.percentage,
-      bonus_active        : input.active
-    };
-    connection.query("SELECT BONUS_MODEL_VALUE_MAX FROM T_BONUS_MODEL WHERE BONUS_MODEL_ID = "+data.bonus_model_id, function(err, rows)
+	console.log(input);
+    connection.query("SELECT * FROM T_BONUS_MODEL WHERE BONUS_MODEL_ID = "+input.form.BONUS_MODEL, function(err, rows)
     {
       if(err)
         console.log("Error selecting : %s ", err);
-      var max = parseInt(JSON.parse(JSON.stringify(rows))[0].BONUS_MODEL_VALUE_MAX);
-      if(data.bonus_value >= 0 && data.bonus_value <= max)
+	  var d = Date.now();
+      var result = JSON.parse(JSON.stringify(rows));
+	  var data = {
+			BONUS_VALUE		  : result[0].BONUS_MODEL_VALUE,
+			BONUS_MODEL_ID      : input.form.BONUS_MODEL,
+			USER_ID       	  : input.form.USER,
+			BONUS_DATE_START    : input.form.DATE_START,
+			BONUS_PERCENTAGE 	  : result[0].BONUS_MODEL_VALUE/result[0].BONUS_MODEL_VALUE_MAX*100
+		};
+		console.log(data);
+      connection.query("INSERT INTO T_BONUS set ?", data, function(err)
       {
-        connection.query("INSERT INTO T_BONUS (BONUS_VALUE, BONUS_DATE_START, BONUS_DATE_CREATION, USER_ID, BONUS_MODEL_ID, BONUS_PERCENTAGE, BONUS_ACTIVE) VALUES ("+data.bonus_value+","+ data.bonus_date_start+","+ data.bonus_date_creation+","+ data.bonus_user_id+","+ data.bonus_model_id+","+ data.bonus_percentage+","+ data.bonus_active+")",function(err)
-        {
-          if(err)
-            console.log("Error inserting : %s", err);
-        });
-      }
-      else
-        console.log("Bonus value out of bounds");
+        if(err)
+          console.log("Error inserting : %s", err);
+	  });
     });
   });
 }

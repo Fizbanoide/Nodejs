@@ -1,26 +1,51 @@
 exports.add = function(req,res){
     
     var input = JSON.parse(JSON.stringify(req.body));
-    console.log(input);
     req.getConnection(function (err, connection) {
+        		
+		var addressData = {
+			ADDRESS_STREET: input.ADDRESS_STREET,
+			ADDRESS_CITY: input.ADDRESS_CITY,
+			ADDRESS_ZIPCODE: input.ADDRESS_ZIPCODE,
+			ADDRESS_COUNTRY: input.ADDRESS_COUNTRY
+		};
+		
+		connection.query("INSERT INTO T_ADDRESS set ? ", addressData, function(err, result)
+		{
+			if(err)
+				console.log("Error inserting : %s ", err);
+		});
+		var addressId = result.insertId;
+		
+		var contatData = {
+			CONTACT_PHONE: input.CONTACT_PHONE,
+			CONTACT_MAIL: input.CONTACT_MAIL
+		};
         
-        var data = {
+		connection.query("INSERT INTO T_CONTACT set ? ", contactData, function(err, result2)
+		{
+			if(err)
+				console.log("Error inserting : %s ", err);
+		});
+		
+		var contactId = result2.insertId;
+		
+		var userData = {
             
-            USER_FIRSTNAME: input.firstname,
-            USER_LASTNAME: input.lastname,
-            USER_LOGIN: input.login,
-            USER_PASSWORD: input.password,
-            USER_STATUS: input.status,
+            USER_FIRSTNAME: input.USER_FIRSTNAME,
+            USER_LASTNAME: input.USER_LASTNAME,
+            USER_LOGIN: input.USER_LOGIN,
+            USER_PASSWORD: input.USER_PASSWORD,
+            USER_STATUS: input.USER_STATUS,
             USER_ACTIVE: 1,
-            USER_HOLIDAYS: input.holidays,
-            ADDRESS_ID: 1,
-            CONTACT_ID: 1,
+            ADDRESS_ID: addressId,
+            CONTACT_ID: contactId,
             PROFILE_ID: input.profile,
             COMP_ID: input.compid,
-            USER_DATE_CREATION: input.date
+            USER_DATE_CREATION: Date.now()/1000
         
         };
-        
+		
         var query = connection.query("INSERT INTO T_USER set ? ",data, function(err, rows)
         {
   
