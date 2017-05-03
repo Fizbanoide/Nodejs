@@ -119,15 +119,13 @@ class IndexController
 
     public function showDrivers(Request $request, Application $app)
     {
-        $ch = curl_init("http://localhost:4300/drivers/show?action=get&id=1&format=json");
+        $ch = curl_init("http://localhost:4300/drivers/show");
         $options = array(
-            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-            CURLOPT_TIMEOUT => 0
         );
         curl_setopt_array($ch, $options);
-
-        $drivers = curl_exec($ch);
+        $drivers = json_decode(curl_exec($ch));
         echo $drivers;
         curl_close($ch);
 
